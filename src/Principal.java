@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -21,9 +22,7 @@ import Grafo.Vertex;
 public class Principal {
 
     public static void main(String[] args) {
-        System.out.println("Cargando");
          Graph<DecoratedElement<Personaje>, Integer> grafo=CargarDatos();
-        //Graph<DecoratedElement<Personaje>, Integer> grafo = cargarDatosPruebas();
         Menu(grafo);
     }
 
@@ -40,15 +39,12 @@ public class Principal {
             do {
                 linea = lector.nextLine();
                 String[] splitted = linea.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                if(splitted[0].equals("Iron Man / Tony Stark")&&splitted[1].equals("Thanos"))
-                System.out.println(splitted[2]);
                 g.insertEdge(new DecoratedElement<Personaje>(new Personaje(splitted[0])),
                         new DecoratedElement<Personaje>(new Personaje(splitted[1])), Integer.valueOf(splitted[2]));
             } while (lector.hasNextLine());
             lector.close();
             return g;
         } catch (IOException ex) {
-            System.out.println("Holasdfklas");
             System.exit(1);
             return null;
         }
@@ -63,7 +59,7 @@ public class Principal {
      * @param grafo Gráfico<ElementoDecorado<Personaje>, Entero>
      */
     public static void Menu(Graph<DecoratedElement<Personaje>, Integer> grafo) {
-       while (false==false){
+       while (true){
         System.out.println("\n\nMenu Principal");
         System.out.println("Selecciona una opción");
         System.out.println("1 Mostar datos de los personajes");
@@ -73,13 +69,14 @@ public class Principal {
         Scanner sc = new Scanner(System.in);
         try {
             List<Vertex<DecoratedElement<Personaje>>> vertices = crearListaVertices(grafo.getVertices());
+            Collections.sort(vertices, ((a, b) -> crearListaAristas(grafo.incidentEdges(b)).size() 
+            - crearListaAristas(grafo.incidentEdges(a)).size() ));
             switch (sc.nextInt()) {
                 case 1:
                     System.out.println("Cantidad de personajes: " + grafo.getN());
                     System.out.println("Cantidad de relaciones: " + grafo.getM());
                     mostarMayor(vertices, grafo);
                     mostarMenor(vertices, grafo);
-                    //Menu(grafo);
                     break;
                 case 2:
                     for (Vertex<DecoratedElement<Personaje>> vertex : vertices) {
@@ -94,7 +91,6 @@ public class Principal {
                         System.out.print(fin.getID());
                     } else
                         System.out.println("Camino no encontrado");
-                    //Menu(grafo);
                     break;
                 case 3:
                     vertices.forEach(a -> System.out.println(a.getID()));
@@ -107,21 +103,17 @@ public class Principal {
                         System.out.println(fin.getID());
                     } else
                         System.out.println("no se pudo hacer un equipo entre " + inicio.getID() + " y " + fin.getID());
-                   // Menu(grafo);
                     break;
                 case 4:
                     System.out.println("Nos vemos");
                     sc.close();
                     return;
-                    //break;
                 default:
                     System.out.println("Opcion no valida: ");
-                    //Menu(grafo)
 
             }
         } catch (InputMismatchException e) {
             System.out.println("Opcion no valida: ");
-           // Menu(grafo);
         }
        }
     }
