@@ -22,7 +22,7 @@ public class Principal {
 
     public static void main(String[] args) {
         System.out.println("Cargando");
-         Graph<DecoratedElement<Personaje>, Integer> grafo=Cargar();
+         Graph<DecoratedElement<Personaje>, Integer> grafo=CargarDatos();
         //Graph<DecoratedElement<Personaje>, Integer> grafo = cargarDatosPruebas();
         Menu(grafo);
     }
@@ -32,7 +32,7 @@ public class Principal {
      * 
      * @return Un gráfico de elementos decorados de Personaje.
      */
-    public static Graph<DecoratedElement<Personaje>, Integer> Cargar() {
+    public static Graph<DecoratedElement<Personaje>, Integer> CargarDatos() {
         Graph<DecoratedElement<Personaje>, Integer> g = new TreeMapGraph<DecoratedElement<Personaje>, Integer>();
         try {
             Scanner lector = new Scanner(new File("marvel-unimodal-edges.csv"));
