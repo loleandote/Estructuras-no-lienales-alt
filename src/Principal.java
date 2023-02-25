@@ -72,7 +72,7 @@ public class Principal {
         System.out.println("4 Salir");
         Scanner sc = new Scanner(System.in);
         try {
-            List<Vertex<DecoratedElement<Personaje>>> vertices = iterableToList(grafo.getVertices());
+            List<Vertex<DecoratedElement<Personaje>>> vertices = crearListaVertices(grafo.getVertices());
             switch (sc.nextInt()) {
                 case 1:
                     System.out.println("Cantidad de personajes: " + grafo.getN());
@@ -139,8 +139,8 @@ public class Principal {
             System.out.println(
                     "El personaje con menor número de relaciones es: " + personajes.get(personajes.size() - 1).getID());
             for (int i = personajes.size() - 2; i >= 0; i--)
-                if (iterableToList2(grafo.incidentEdges(personajes.get(i)))
-                        .size() == iterableToList2(grafo.incidentEdges(personajes.get(personajes.size() - 1))).size())
+                if (crearListaAristas(grafo.incidentEdges(personajes.get(i)))
+                        .size() == crearListaAristas(grafo.incidentEdges(personajes.get(personajes.size() - 1))).size())
                     System.out.println("El personaje con menor número de relaciones es: " + personajes.get(i).getID());
 
         } catch (NoSuchElementException e) {
@@ -159,8 +159,8 @@ public class Principal {
         try {
             System.out.println("El personaje con mayor número de relaciones es: " + personajes.get(0).getID());
             for (int i = 1; i < personajes.size() - 1; i++)
-                if (iterableToList2(grafo.incidentEdges(personajes.get(i)))
-                        .size() == iterableToList2(grafo.incidentEdges(personajes.get(0))).size())
+                if (crearListaAristas(grafo.incidentEdges(personajes.get(i)))
+                        .size() == crearListaAristas(grafo.incidentEdges(personajes.get(0))).size())
                     System.out.println("El personaje con mayor número de relaciones es: " + personajes.get(i).getID());
 
         } catch (NoSuchElementException e) {
@@ -272,7 +272,7 @@ public class Principal {
      * @param iterator el iterador para convertir a una lista
      * @return Una lista de vértices.
      */
-    private static List<Vertex<DecoratedElement<Personaje>>> iterableToList(
+    private static List<Vertex<DecoratedElement<Personaje>>> crearListaVertices(
             Iterator<Vertex<DecoratedElement<Personaje>>> iterator) {
         List<Vertex<DecoratedElement<Personaje>>> list = new ArrayList<>();
         while (iterator.hasNext())
@@ -286,7 +286,7 @@ public class Principal {
      * @param iterator el iterador para convertir a una lista
      * @return Una lista de bordes.
      */
-    private static List<Edge<Integer>> iterableToList2(Iterator<Edge<Integer>> iterator) {
+    private static List<Edge<Integer>> crearListaAristas(Iterator<Edge<Integer>> iterator) {
         List<Edge<Integer>> list = new ArrayList<>();
         while (iterator.hasNext()) {
             list.add(iterator.next());
