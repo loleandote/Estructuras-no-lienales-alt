@@ -3,5 +3,8 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
-    ]
+    ],
+    "docwriter.language": "Spanish",
+    "docwriter.progress.trackMethods": true,
+    "docwriter.progress.trackClasses": true
 }
